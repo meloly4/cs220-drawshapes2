@@ -30,7 +30,7 @@ public class DrawShapes extends JFrame
         CIRCLE,
         RECTANGLE
     }
-    
+
 
     private DrawShapesPanel shapePanel;
     private Scene scene;
@@ -43,7 +43,7 @@ public class DrawShapes extends JFrame
     {
         setTitle("Draw Shapes!");
         scene=new Scene();
-        
+
 
         // create our canvas, add to this frame's content pane
         shapePanel = new DrawShapesPanel(width,height,scene);
@@ -51,12 +51,12 @@ public class DrawShapes extends JFrame
         this.setResizable(false);
         this.pack();
         this.setLocation(100,100);
-        
+
 
         // Add key and mouse listeners to our canvas
         initializeMouseListener();
         initializeKeyListener();
-        
+
 
         // initialize the menu options
         initializeMenu();
@@ -68,12 +68,12 @@ public class DrawShapes extends JFrame
             }
         });
     }
-    
+
 
     private void initializeMouseListener()
     {
         MouseAdapter a = new MouseAdapter() {
-            
+
 
             public void mouseClicked(MouseEvent e)
             {
@@ -246,7 +246,7 @@ public class DrawShapes extends JFrame
 			}
 		});
 
-        // blue color
+        // green color
         addToMenu(colorMenu, "Green", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String text=e.getActionCommand();
