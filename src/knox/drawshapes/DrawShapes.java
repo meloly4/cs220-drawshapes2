@@ -31,6 +31,7 @@ public class DrawShapes extends JFrame
         RECTANGLE
     }
     
+
     private DrawShapesPanel shapePanel;
     private Scene scene;
     private ShapeType shapeType = ShapeType.SQUARE;
@@ -43,6 +44,7 @@ public class DrawShapes extends JFrame
         setTitle("Draw Shapes!");
         scene=new Scene();
         
+
         // create our canvas, add to this frame's content pane
         shapePanel = new DrawShapesPanel(width,height,scene);
         this.getContentPane().add(shapePanel, BorderLayout.CENTER);
@@ -50,10 +52,12 @@ public class DrawShapes extends JFrame
         this.pack();
         this.setLocation(100,100);
         
+
         // Add key and mouse listeners to our canvas
         initializeMouseListener();
         initializeKeyListener();
         
+
         // initialize the menu options
         initializeMenu();
 
@@ -65,18 +69,20 @@ public class DrawShapes extends JFrame
         });
     }
     
+
     private void initializeMouseListener()
     {
         MouseAdapter a = new MouseAdapter() {
             
+
             public void mouseClicked(MouseEvent e)
             {
                 System.out.printf("Mouse cliked at (%d, %d)\n", e.getX(), e.getY());
-                
-                if (e.getButton()==MouseEvent.BUTTON1) { 
+
+                if (e.getButton()==MouseEvent.BUTTON1) {
                     if (shapeType == ShapeType.SQUARE) {
-                        scene.addShape(new Square(color, 
-                                e.getX(), 
+                        scene.addShape(new Square(color,
+                                e.getX(),
                                 e.getY(),
                                 100));
                     } else if (shapeType == ShapeType.CIRCLE){
@@ -86,11 +92,11 @@ public class DrawShapes extends JFrame
                     } else if (shapeType == ShapeType.RECTANGLE) {
                         scene.addShape(new Rectangle(
                                 e.getPoint(),
-                                100, 
+                                100,
                                 200,
                                 color));
                     }
-                    
+
                 } else if (e.getButton()==MouseEvent.BUTTON2) {
                     // apparently this is middle click
                 } else if (e.getButton()==MouseEvent.BUTTON3){
@@ -111,7 +117,7 @@ public class DrawShapes extends JFrame
                 }
                 repaint();
             }
-            
+
             /* (non-Javadoc)
              * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
              */
@@ -119,7 +125,7 @@ public class DrawShapes extends JFrame
             {
                 System.out.printf("mouse pressed at (%d, %d)\n", e.getX(), e.getY());
                 scene.startDrag(e.getPoint());
-                
+
             }
 
             /* (non-Javadoc)
@@ -131,7 +137,7 @@ public class DrawShapes extends JFrame
                 scene.stopDrag();
                 repaint();
             }
-            
+
             @Override
             public void mouseDragged(MouseEvent e) {
                 System.out.printf("mouse drag! (%d, %d)\n", e.getX(), e.getY());
@@ -143,12 +149,12 @@ public class DrawShapes extends JFrame
             public void mouseWheelMoved(MouseWheelEvent e) {
                 // TODO use this to grow/shrink shapes
             }
-            
+
         };
         shapePanel.addMouseMotionListener(a);
         shapePanel.addMouseListener(a);
     }
-    
+
     /**
      * Initialize the menu options
      */
@@ -156,7 +162,7 @@ public class DrawShapes extends JFrame
     {
         // menu bar
         JMenuBar menuBar = new JMenuBar();
-        
+
         // file menu
         JMenu fileMenu=new JMenu("File");
         menuBar.add(fileMenu);
@@ -220,15 +226,15 @@ public class DrawShapes extends JFrame
             }
         });
 
-        
+
         // OK, it's annoying to create menu items this way,
         // so let's use a helper method
-        
+
         // color menu
         JMenu colorMenu = new JMenu("Color");
         menuBar.add(colorMenu);
 
-        
+
         // red color
         addToMenu(colorMenu, "Red", new ActionListener() {
 			@Override
@@ -239,7 +245,17 @@ public class DrawShapes extends JFrame
                 color = Color.RED;
 			}
 		});
-        
+
+        // blue color
+        addToMenu(colorMenu, "Green", new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String text=e.getActionCommand();
+                System.out.println(text);
+                // change the color instance variable to blue
+                color = Color.GREEN;
+            }
+        });
+
         // blue color
         addToMenu(colorMenu, "Blue", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -249,11 +265,11 @@ public class DrawShapes extends JFrame
                 color = Color.BLUE;
             }
         });
-        
+
         // shape menu
         JMenu shapeMenu = new JMenu("Shape");
         menuBar.add(shapeMenu);
-        
+
         // square
         addToMenu(shapeMenu, "Square", new ActionListener() {
             @Override
@@ -262,7 +278,7 @@ public class DrawShapes extends JFrame
                 shapeType = ShapeType.SQUARE;
             }
         });
-        
+
         // circle
         addToMenu(shapeMenu, "Circle", new ActionListener() {
             @Override
@@ -271,12 +287,12 @@ public class DrawShapes extends JFrame
                 shapeType = ShapeType.CIRCLE;
             }
         });
-        
-        
+
+
         // operation mode menu
         JMenu operationModeMenu=new JMenu("Operation");
         menuBar.add(operationModeMenu);
-        
+
         // scale up
         addToMenu(operationModeMenu, "Scale Up", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -286,7 +302,7 @@ public class DrawShapes extends JFrame
                 repaint();
             }
         });
-        
+
         // scale down
         addToMenu(operationModeMenu, "Scale Down", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -296,7 +312,7 @@ public class DrawShapes extends JFrame
                 repaint();
             }
         });
-        
+
         // move option
         addToMenu(operationModeMenu, "Move", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -305,19 +321,19 @@ public class DrawShapes extends JFrame
                 System.out.println(text);
             }
         });
-        
+
 
         // set the menu bar for this frame
         this.setJMenuBar(menuBar);
     }
-    
+
     // Awesome helper method!
     private void addToMenu(JMenu menu, String title, ActionListener listener) {
     	JMenuItem menuItem = new JMenuItem(title);
     	menu.add(menuItem);
     	menuItem.addActionListener(listener);
     }
-    
+
     /**
      * Initialize the keyboard listener.
      */
@@ -349,7 +365,7 @@ public class DrawShapes extends JFrame
             }
         });
     }
-    
+
     /**
      * @param args
      */
