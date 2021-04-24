@@ -28,7 +28,8 @@ public class DrawShapes extends JFrame
     private enum ShapeType {
         SQUARE,
         CIRCLE,
-        RECTANGLE
+        RECTANGLE,
+        TRIANGLE
     }
 
 
@@ -87,6 +88,10 @@ public class DrawShapes extends JFrame
                                 100));
                     } else if (shapeType == ShapeType.CIRCLE){
                         scene.addShape(new Circle(color,
+                                e.getPoint(),
+                                100));
+                    } else if (shapeType == ShapeType.TRIANGLE){
+                        scene.addShape(new Triangle(color,
                                 e.getPoint(),
                                 100));
                     } else if (shapeType == ShapeType.RECTANGLE) {
@@ -279,6 +284,24 @@ public class DrawShapes extends JFrame
             }
         });
 
+        // rectangle
+        addToMenu(shapeMenu, "Rectangle", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Rectangle");
+                shapeType = ShapeType.RECTANGLE;
+            }
+        });
+
+        // triangle
+        addToMenu(shapeMenu, "Triangle", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Triangle");
+                shapeType = ShapeType.TRIANGLE;
+            }
+        });
+
         // circle
         addToMenu(shapeMenu, "Circle", new ActionListener() {
             @Override
@@ -313,12 +336,24 @@ public class DrawShapes extends JFrame
             }
         });
 
+        // clear
+        addToMenu(operationModeMenu, "Clear", new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String text=e.getActionCommand();
+                System.out.println(text);
+                scene.clear();
+                repaint();
+            }
+        });
+
         // move option
         addToMenu(operationModeMenu, "Move", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String text=e.getActionCommand();
                 // currently this just prints
                 System.out.println(text);
+                scene.moveSelected(0,100);
+                repaint();
             }
         });
 
